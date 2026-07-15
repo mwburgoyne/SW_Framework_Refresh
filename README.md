@@ -8,9 +8,9 @@ The work is described in **Refreshed Søreide-Whitson Framework for Gas Solubili
 
 The S&W framework models gas-water-brine equilibria with the Peng-Robinson EOS, a modified water alpha function carrying temperature and salinity dependence, and a dual-flash scheme: aqueous-phase BIPs ($k_{ij}^{\mathrm{AQ}}$) control dissolved gas content, non-aqueous-phase BIPs ($k_{ij}^{\mathrm{NA}}$) control the water content of the gas phase. The original S&W water alpha is retained unchanged:
 
-$$\sqrt{\alpha_{\mathrm{H_2O}}} = 1 + 0.4530\left[1 - T_r\left(1 - 0.0103\,c_{\mathrm{sw}}^{1.1}\right)\right] + 0.0034\left(T_r^{-3} - 1\right)$$
+$$\sqrt{\alpha_{\mathrm{H_2O}}} = 1 + 0.4530\left[1 - T_r\left(1 - 0.0103 c_{\mathrm{sw}}^{1.1}\right)\right] + 0.0034\left(T_r^{-3} - 1\right)$$
 
-with $T_r = T/647.3\ \mathrm{K}$ and $c_{\mathrm{sw}}$ the NaCl molality (mol/kg H₂O). The paper shows (its Table 1) that replacing this alpha with a higher-accuracy Mathias-Copeman form, or moving to a modular gamma-phi salting-out implementation, leaves solubility predictions unchanged once the BIP is refitted: the regressed $k_{ij}$ absorbs upstream model differences, which is why the simpler drop-in formulation is recommended.
+with $T_r = T/647.3~\mathrm{K}$ and $c_{\mathrm{sw}}$ the NaCl molality (mol/kg H₂O). The paper shows (its Table 1) that replacing this alpha with a higher-accuracy Mathias-Copeman form, or moving to a modular gamma-phi salting-out implementation, leaves solubility predictions unchanged once the BIP is refitted: the regressed $k_{ij}$ absorbs upstream model differences, which is why the simpler drop-in formulation is recommended.
 
 ## Recommended aqueous-phase BIP correlations, $k_{ij}^{\mathrm{AQ}}(T)$
 
@@ -18,14 +18,14 @@ Fitted to freshwater data only (T ≤ 200 °C), with $T_r = T/T_c$ of the gas. M
 
 | Gas | $T_c$ (K) | Correlation | n | MAE | MARE (%) | S&W MARE (%) |
 |---|---|---|---|---|---|---|
-| CO₂ | 304.20 | $-1.5893 + 3.0077\,T_r - 2.0532\,T_r^2 + 0.5207\,T_r^3$ | 611 | 0.0119 | 16.4 | 23.0 |
-| H₂S | 373.20 | $-0.2001/T_r + 1348.96\,e^{-12.071/T_r} + 0.2260$ | 405 | 0.0112 | 38.5 | 51.3 |
-| CH₄ | 190.60 | $(-2.1756 + T_r)\,/\,(1.0388 + 0.6436\,T_r)$ | 115 | 0.0089 | 4.8 | 5.8 |
-| N₂ | 126.10 | $-1.6689 + 0.4340\,T_r$ | 127 | 0.0114 | 5.7 | 7.7 |
-| H₂ | 33.145 | $(-14.9412 + T_r)\,/\,(2.2832 + 0.3893\,T_r)$ | 154 | 0.0300 | 10.2 | n/a |
-| C₂H₆ | 305.40 | $(-1.2668 + T_r)\,/\,(0.1739 + 1.4165\,T_r)$ | 94 | 0.0095 | 12.9 | 16.1 |
-| C₃H₈ | 369.80 | $(-1.1496 + T_r)\,/\,(0.3501 + 1.5930\,T_r)$ | 59 | 0.0022 | 4.8 | 10.5 |
-| nC₄H₁₀ | 425.20 | $-0.9354 + 1.2615\,T_r - 0.3696\,T_r^2$ (S&W form retained) | 27 | --- | --- | --- |
+| CO₂ | 304.20 | $-1.5893 + 3.0077 T_r - 2.0532 T_r^2 + 0.5207 T_r^3$ | 611 | 0.0119 | 16.4 | 23.0 |
+| H₂S | 373.20 | $-0.2001/T_r + 1348.96 e^{-12.071/T_r} + 0.2260$ | 405 | 0.0112 | 38.5 | 51.3 |
+| CH₄ | 190.60 | $(-2.1756 + T_r) / (1.0388 + 0.6436 T_r)$ | 115 | 0.0089 | 4.8 | 5.8 |
+| N₂ | 126.10 | $-1.6689 + 0.4340 T_r$ | 127 | 0.0114 | 5.7 | 7.7 |
+| H₂ | 33.145 | $(-14.9412 + T_r) / (2.2832 + 0.3893 T_r)$ | 154 | 0.0300 | 10.2 | n/a |
+| C₂H₆ | 305.40 | $(-1.2668 + T_r) / (0.1739 + 1.4165 T_r)$ | 94 | 0.0095 | 12.9 | 16.1 |
+| C₃H₈ | 369.80 | $(-1.1496 + T_r) / (0.3501 + 1.5930 T_r)$ | 59 | 0.0022 | 4.8 | 10.5 |
+| nC₄H₁₀ | 425.20 | $-0.9354 + 1.2615 T_r - 0.3696 T_r^2$ (S&W form retained) | 27 | --- | --- | --- |
 
 The H₂S MARE is dominated by very dilute points; excluding $x < 0.003$ it drops to roughly 8%. H₂ was not in the original framework; the rational form reproduces the U-shaped solubility with its minimum near 50 °C (see the paper for source selection and validation).
 
@@ -35,7 +35,7 @@ Original S&W constants are retained for six gases (re-optimisation gains at most
 
 | Gas | $k_{ij}^{\mathrm{NA}}$ | Status |
 |---|---|---|
-| H₂S | **0.161** (constant) | Replaces S&W Eq. 17 ($0.19031 - 0.05965\,T_r$); water-content MARE 13.7% → 10.0% |
+| H₂S | **0.161** (constant) | Replaces S&W Eq. 17 ($0.19031 - 0.05965 T_r$); water-content MARE 13.7% → 10.0% |
 | H₂ | **0.468** (constant) | New; consistent with the CH₄ (0.485) / N₂ (0.478) volatility trend |
 | CO₂ | 0.190 | Retained from S&W Table 5 |
 | CH₄ | 0.485 | Retained |
@@ -46,9 +46,9 @@ Original S&W constants are retained for six gases (re-optimisation gains at most
 
 ## Recommended Sechenov (salting-out) models
 
-Gas solubility in brine follows $\log_{10}(x_{\mathrm{fresh}}/x_{\mathrm{brine}}) = k_s\,m$ with $k_s$ in kg/mol and $m$ the NaCl molality. The S&W generalised correlation (their Eq. 8), converted to SI units,
+Gas solubility in brine follows $\log_{10}(x_{\mathrm{fresh}}/x_{\mathrm{brine}}) = k_s \cdot m$ with $k_s$ in kg/mol and $m$ the NaCl molality. The S&W generalised correlation (their Eq. 8), converted to SI units,
 
-$$k_s = 1.3012 + 4.45\times10^{-4}\,T_b - 8.769\times10^{-3}\,T + 2.0293\times10^{-5}\,T^2 - 1.5233\times10^{-8}\,T^3$$
+$$k_s = 1.3012 + 4.45\times10^{-4} T_b - 8.769\times10^{-3} T + 2.0293\times10^{-5} T^2 - 1.5233\times10^{-8} T^3$$
 
 ($T$, $T_b$ in K), remains adequate for the non-polar gases but not for the acid gases. Recommendations:
 
@@ -69,7 +69,7 @@ For simulators where flash-routine modification is impractical, salinity is embe
 
 $$k_{ij}^{\mathrm{AQ}}(T, m) = k_{ij,\mathrm{fw}}(T) + \Delta k_{ij}(T, m)$$
 
-with $\Delta k_{ij} = (a_0 + a_1 T_r + a_2 T_r^2)\,m$ for seven gases, and for CO₂ an added quadratic term $(b_0 + b_1 T_r)\,m^2$. The fitted coefficients reproduce the recommended Sechenov models with mean solubility deviations below 2%:
+with $\Delta k_{ij} = (a_0 + a_1 T_r + a_2 T_r^2) \cdot m$ for seven gases, and for CO₂ an added quadratic term $(b_0 + b_1 T_r) \cdot m^2$. The fitted coefficients reproduce the recommended Sechenov models with mean solubility deviations below 2%:
 
 | Gas | $T_c$ (K) | $a_0$ | $a_1$ | $a_2$ | $b_0$ | $b_1$ | MAE (%) |
 |---|---|---|---|---|---|---|---|
