@@ -1,11 +1,8 @@
 # Søreide-Whitson Framework Refresh
 
-Code and data supporting two companion papers on gas-water-brine phase equilibria in the Søreide-Whitson (S&W, 1992) Peng-Robinson framework:
+Code and data supporting a refresh of the Søreide-Whitson (S&W, 1992) Peng-Robinson framework for gas-water-brine phase equilibria: updated binary interaction parameter (BIP) correlations for eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀), developed from approximately 2,000 pointwise-regressed BIP values, including extension of the framework to hydrogen for underground storage. The correlations retain the original S&W water alpha function and are drop-in compatible with existing simulator implementations: only the BIP correlation coefficients need updating.
 
-1. **Hydrogen Phase Equilibria in the Søreide-Whitson Framework: Binary Interaction Parameters and Salting-Out Correlations for Underground Storage** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), referred to below as the H₂ paper.
-2. **Refreshed Søreide-Whitson Framework for Gas Solubility in Water and Brine with Extension to Hydrogen** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), referred to below as the framework paper.
-
-The framework paper presents updated binary interaction parameter (BIP) correlations for eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀), developed from approximately 2,000 pointwise-regressed BIP values. The correlations retain the original S&W water alpha function and are drop-in compatible with existing simulator implementations: only the BIP correlation coefficients need updating. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the papers.
+The work is described in **Refreshed Søreide-Whitson Framework for Gas Solubility in Water and Brine with Extension to Hydrogen** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), referred to below as the framework paper; a companion paper, **Hydrogen Phase Equilibria in the Søreide-Whitson Framework: Binary Interaction Parameters and Salting-Out Correlations for Underground Storage** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), details the hydrogen extension. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the papers.
 
 ## Framework summary
 
@@ -30,7 +27,7 @@ Fitted to freshwater data only (T ≤ 200 °C), with $T_r = T/T_c$ of the gas. M
 | C₃H₈ | 369.80 | $(-1.1496 + T_r)\,/\,(0.3501 + 1.5930\,T_r)$ | 59 | 0.0022 | 4.8 | 10.5 |
 | nC₄H₁₀ | 425.20 | $-0.9354 + 1.2615\,T_r - 0.3696\,T_r^2$ (S&W form retained) | 27 | --- | --- | --- |
 
-The H₂S MARE is dominated by very dilute points; excluding $x < 0.003$ it drops to roughly 8%. H₂ was not in the original framework; the rational form reproduces the U-shaped solubility with its minimum near 50 °C (see the H₂ paper for source selection and validation).
+The H₂S MARE is dominated by very dilute points; excluding $x < 0.003$ it drops to roughly 8%. H₂ was not in the original framework; the rational form reproduces the U-shaped solubility with its minimum near 50 °C (see the companion hydrogen paper for source selection and validation).
 
 ## Recommended non-aqueous-phase BIPs, $k_{ij}^{\mathrm{NA}}$
 
@@ -92,11 +89,11 @@ shared/
   vle_engine/         importable VLE engine (SWBinaryVLE, multicomponent flash,
                       Sechenov model library, usage examples)
   data/               experimental datasets and regressed results (see data/README.md)
-framework_refresh/    framework paper pipeline (code/00-12): pointwise kij regression,
+framework_refresh/    main analysis pipeline (code/00-12): pointwise kij regression,
                       correlation fitting, Sechenov analysis, embedded-salinity fits,
                       K-value initialisation, MARE validation, figures
-h2_solubility/        H2 paper pipeline (code/01-06): H2 BIP and salting-out fits,
-                      error validation, figures
+h2_solubility/        H2-focused analyses (code/01-06) supporting the hydrogen
+                      extension: H2 BIP and salting-out fits, error validation, figures
 ```
 
 ## Reproducing the results
@@ -104,12 +101,12 @@ h2_solubility/        H2 paper pipeline (code/01-06): H2 BIP and salting-out fit
 Scripts read shared data and import the engine via paths relative to their own directory, so run each pipeline from its `code/` directory:
 
 ```bash
-# Framework paper
+# Main pipeline
 cd framework_refresh/code
 python 10-Validate_MARE_All_Gases.py     # headline MARE table, all gases
 python 12-Generate_Figures.py            # all figures
 
-# H2 paper
+# H2 extension
 cd h2_solubility/code
 python 06-Generate_Figures.py
 ```

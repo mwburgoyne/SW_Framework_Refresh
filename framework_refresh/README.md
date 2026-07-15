@@ -1,6 +1,6 @@
-# framework_refresh - Søreide-Whitson framework refresh pipeline
+# framework_refresh - main analysis pipeline
 
-Analysis pipeline for the framework paper: updated aqueous and non-aqueous binary interaction parameters, embedded-salinity BIP, and re-selected Sechenov (salting-out) models across eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀). The recommended correlations and coefficients are summarised in the repository root README; full derivations and validation are in the paper.
+Main analysis pipeline for the Søreide-Whitson framework refresh: updated aqueous and non-aqueous binary interaction parameters, embedded-salinity BIP, and re-selected Sechenov (salting-out) models across eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀). The recommended correlations and coefficients are summarised in the repository root README; full derivations and validation are in the framework paper.
 
 ## Pipeline (`code/`)
 

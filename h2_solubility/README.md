@@ -1,8 +1,8 @@
-# h2_solubility - H₂ solubility pipeline
+# h2_solubility - H₂-focused analyses
 
-Analysis pipeline for the H₂ paper: a new H₂-H₂O binary interaction parameter (rational form in reduced temperature) plus Sechenov salting-out treatment within the Søreide-Whitson framework, aimed at underground hydrogen storage. The recommended H₂ correlation and coefficients are summarised in the repository root README.
+Analyses supporting the hydrogen extension of the refreshed Søreide-Whitson framework: the H₂-H₂O binary interaction parameter (rational form in reduced temperature) and Sechenov salting-out treatment, aimed at underground hydrogen storage. The recommended H₂ correlation and coefficients are summarised in the repository root README; the companion hydrogen paper gives the source selection, quality assessment, and validation detail.
 
-## Pipeline (`code/`)
+## Scripts (`code/`)
 
 Run scripts from the `code/` directory; they import the engine from `../../shared/vle_engine/` and read data from `../../shared/data/`.
 
@@ -13,7 +13,7 @@ Run scripts from the `code/` directory; they import the engine from `../../share
 | `03-Fit_Embedded_Salinity_BIP.py` | fit the embedded salinity BIP for H₂ |
 | `04-Validate_Errors.py` | MARE/MAE comparison against published H₂ correlations |
 | `05-Validate_Manuscript_Claims.py` | numeric checks of values quoted in the paper |
-| `06-Generate_Figures.py` | all paper figures |
+| `06-Generate_Figures.py` | figures for the hydrogen analyses |
 
 Typical use:
 
