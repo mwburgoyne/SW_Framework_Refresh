@@ -50,7 +50,7 @@ except ImportError:
     HAS_PRT = False
 
 # ── Paths ──
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'data')
+DATA_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'data')
 KIJ_CSV = os.path.join(DATA_DIR, 'pointwise_kij_results.csv')
 XLSX_PATH = os.path.join(DATA_DIR, 'solubility_points.xlsx')
 OUTPUT_PATH = os.path.join(DATA_DIR, 'mare_all_gases_report.txt')

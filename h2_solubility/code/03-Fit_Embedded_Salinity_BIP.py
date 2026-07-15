@@ -39,7 +39,7 @@ from _lib_vle_engine import (
 # =============================================================================
 # Configuration
 # =============================================================================
-OUTPUT_DIR = '../../data'
+OUTPUT_DIR = '../../shared/data'
 
 # Conditions for fitting
 TEMPERATURES_C = [25, 50, 75, 100, 125, 150]
