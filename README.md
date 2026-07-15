@@ -2,7 +2,7 @@
 
 Code and data supporting a refresh of the Søreide-Whitson (S&W, 1992) Peng-Robinson framework for gas-water-brine phase equilibria: updated binary interaction parameter (BIP) correlations for eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀), developed from approximately 2,000 pointwise-regressed BIP values, including extension of the framework to hydrogen for underground storage. The correlations retain the original S&W water alpha function and are drop-in compatible with existing simulator implementations: only the BIP correlation coefficients need updating.
 
-The work is described in **Refreshed Søreide-Whitson Framework for Gas Solubility in Water and Brine with Extension to Hydrogen** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), referred to below as the framework paper; a companion paper, **Hydrogen Phase Equilibria in the Søreide-Whitson Framework: Binary Interaction Parameters and Salting-Out Correlations for Underground Storage** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), details the hydrogen extension. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the papers.
+The work is described in **Refreshed Søreide-Whitson Framework for Gas Solubility in Water and Brine with Extension to Hydrogen** (Burgoyne & Nielsen, under review at *Fluid Phase Equilibria*), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper.
 
 ## Framework summary
 
@@ -10,7 +10,7 @@ The S&W framework models gas-water-brine equilibria with the Peng-Robinson EOS, 
 
 $$\sqrt{\alpha_{\mathrm{H_2O}}} = 1 + 0.4530\left[1 - T_r\left(1 - 0.0103\,c_{\mathrm{sw}}^{1.1}\right)\right] + 0.0034\left(T_r^{-3} - 1\right)$$
 
-with $T_r = T/647.3\ \mathrm{K}$ and $c_{\mathrm{sw}}$ the NaCl molality (mol/kg H₂O). The framework paper shows (its Table 1) that replacing this alpha with a higher-accuracy Mathias-Copeman form, or moving to a modular gamma-phi salting-out implementation, leaves solubility predictions unchanged once the BIP is refitted: the regressed $k_{ij}$ absorbs upstream model differences, which is why the simpler drop-in formulation is recommended.
+with $T_r = T/647.3\ \mathrm{K}$ and $c_{\mathrm{sw}}$ the NaCl molality (mol/kg H₂O). The paper shows (its Table 1) that replacing this alpha with a higher-accuracy Mathias-Copeman form, or moving to a modular gamma-phi salting-out implementation, leaves solubility predictions unchanged once the BIP is refitted: the regressed $k_{ij}$ absorbs upstream model differences, which is why the simpler drop-in formulation is recommended.
 
 ## Recommended aqueous-phase BIP correlations, $k_{ij}^{\mathrm{AQ}}(T)$
 
@@ -27,7 +27,7 @@ Fitted to freshwater data only (T ≤ 200 °C), with $T_r = T/T_c$ of the gas. M
 | C₃H₈ | 369.80 | $(-1.1496 + T_r)\,/\,(0.3501 + 1.5930\,T_r)$ | 59 | 0.0022 | 4.8 | 10.5 |
 | nC₄H₁₀ | 425.20 | $-0.9354 + 1.2615\,T_r - 0.3696\,T_r^2$ (S&W form retained) | 27 | --- | --- | --- |
 
-The H₂S MARE is dominated by very dilute points; excluding $x < 0.003$ it drops to roughly 8%. H₂ was not in the original framework; the rational form reproduces the U-shaped solubility with its minimum near 50 °C (see the companion hydrogen paper for source selection and validation).
+The H₂S MARE is dominated by very dilute points; excluding $x < 0.003$ it drops to roughly 8%. H₂ was not in the original framework; the rational form reproduces the U-shaped solubility with its minimum near 50 °C (see the paper for source selection and validation).
 
 ## Recommended non-aqueous-phase BIPs, $k_{ij}^{\mathrm{NA}}$
 
@@ -122,4 +122,4 @@ Mark Burgoyne (Santos Ltd) and Markus H. Nielsen (Whitson AS).
 - Søreide, I., Whitson, C.H., 1992. Peng-Robinson predictions for hydrocarbons, CO₂, N₂, and H₂S with pure water and NaCl brine. *Fluid Phase Equilib.* 77, 217-240. [doi:10.1016/0378-3812(92)85105-H](https://doi.org/10.1016/0378-3812(92)85105-H)
 - Dubessy, J., Tarantola, A., Sterpenich, J., 2005. Modelling of liquid-vapour equilibria in the H₂O-CO₂-NaCl and H₂O-H₂S-NaCl systems to 270 °C. *Oil Gas Sci. Technol. - Rev. IFP* 60, 339-355. [doi:10.2516/ogst:2005022](https://doi.org/10.2516/ogst:2005022)
 - Akinfiev, N.N., Majer, V., Shvarov, Yu.V., 2016. Thermodynamic description of H₂S-H₂O-NaCl solutions at temperatures to 573 K and pressures to 40 MPa. *Chem. Geol.* 424, 1-11. [doi:10.1016/j.chemgeo.2016.01.006](https://doi.org/10.1016/j.chemgeo.2016.01.006)
-- The two papers listed at the top of this README (under review); full experimental-source citations are given there.
+- The paper listed at the top of this README (under review); full experimental-source citations are given there.

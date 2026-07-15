@@ -1,6 +1,6 @@
 # h2_solubility - H₂-focused analyses
 
-Analyses supporting the hydrogen extension of the refreshed Søreide-Whitson framework: the H₂-H₂O binary interaction parameter (rational form in reduced temperature) and Sechenov salting-out treatment, aimed at underground hydrogen storage. The recommended H₂ correlation and coefficients are summarised in the repository root README; the companion hydrogen paper gives the source selection, quality assessment, and validation detail.
+Analyses supporting the hydrogen extension of the refreshed Søreide-Whitson framework: the H₂-H₂O binary interaction parameter (rational form in reduced temperature) and Sechenov salting-out treatment, aimed at underground hydrogen storage. The recommended H₂ correlation and coefficients are summarised in the repository root README; the paper gives the source selection, quality assessment, and validation detail.
 
 ## Scripts (`code/`)
 
@@ -12,7 +12,7 @@ Run scripts from the `code/` directory; they import the engine from `../../share
 | `02-Fit_Nonaqueous_BIP.py` | validate the constant non-aqueous BIP (0.468) against water-content data |
 | `03-Fit_Embedded_Salinity_BIP.py` | fit the embedded salinity BIP for H₂ |
 | `04-Validate_Errors.py` | MARE/MAE comparison against published H₂ correlations |
-| `05-Validate_Manuscript_Claims.py` | numeric checks of values quoted in the paper |
+| `05-Validate_Manuscript_Claims.py` | numeric consistency checks of the fitted H₂ correlations |
 | `06-Generate_Figures.py` | figures for the hydrogen analyses |
 
 Typical use:
