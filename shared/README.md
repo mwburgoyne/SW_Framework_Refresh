@@ -1,6 +1,6 @@
 # shared - engine and data used by both pipelines
 
-Code and data common to `framework_refresh/` and `h2_solubility/`, so both draw on a single VLE engine and a single set of experimental data.
+The VLE engine and datasets used by the analysis pipeline in `framework_refresh/`.
 
 ## `vle_engine/`
 

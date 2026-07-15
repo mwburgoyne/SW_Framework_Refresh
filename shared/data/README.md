@@ -20,7 +20,7 @@ Implied Sechenov coefficients from the Blount & Price (1982) CH₄ brine dataset
 Pointwise-regressed kij values per experimental point using the original S&W water alpha. This is the basis of the recommended (drop-in) correlations and the MAE(kij) values quoted in the paper. Columns: gas, source, T, P, experimental x_gas / y_H2O, regressed kij_AQ and kij_NA with convergence flags.
 
 ### pointwise_kij_results.csv
-Same regression using the Mathias-Copeman refitted water alpha; used in the alpha-function sensitivity study (paper Table 1) and by the H₂-focused analyses.
+Same regression using the Mathias-Copeman refitted water alpha; used in the alpha-function sensitivity study (paper Table 1).
 
 ### embedded_salinity_bip_all_gases.csv
 Fitted embedded salinity BIP coefficients (a0, a1, a2 and, for CO₂, b0, b1) per gas, as tabulated in the root README.

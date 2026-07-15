@@ -89,26 +89,19 @@ shared/
   vle_engine/         importable VLE engine (SWBinaryVLE, multicomponent flash,
                       Sechenov model library, usage examples)
   data/               experimental datasets and regressed results (see data/README.md)
-framework_refresh/    main analysis pipeline (code/00-12): pointwise kij regression,
+framework_refresh/    analysis pipeline (code/00-12): pointwise kij regression,
                       correlation fitting, Sechenov analysis, embedded-salinity fits,
                       K-value initialisation, MARE validation, figures
-h2_solubility/        H2-focused analyses (code/01-06) supporting the hydrogen
-                      extension: H2 BIP and salting-out fits, error validation, figures
 ```
 
 ## Reproducing the results
 
-Scripts read shared data and import the engine via paths relative to their own directory, so run each pipeline from its `code/` directory:
+Scripts read shared data and import the engine via paths relative to their own directory, so run the pipeline from its `code/` directory:
 
 ```bash
-# Main pipeline
 cd framework_refresh/code
 python 10-Validate_MARE_All_Gases.py     # headline MARE table, all gases
 python 12-Generate_Figures.py            # all figures
-
-# H2 extension
-cd h2_solubility/code
-python 06-Generate_Figures.py
 ```
 
 Dependencies: numpy, scipy, pandas, matplotlib, openpyxl.
