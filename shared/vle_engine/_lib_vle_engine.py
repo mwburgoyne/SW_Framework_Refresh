@@ -353,7 +353,7 @@ def kij_aq_h2(T_K: float, salinity_molal: float = 0.0) -> float:
 # Gases whose S&W original kij_AQ correlations have EMBEDDED salinity (csw terms).
 # Used only in 'sw_original' framework mode.
 _SW_GASES_WITH_EMBEDDED_SALINITY = {
-    'C2H6', 'C3H8', 'iC4H10', 'nC4H10',
+    'CH4', 'C2H6', 'C3H8', 'iC4H10', 'nC4H10',
     'iC5H12', 'nC5H12', 'nC6H14', 'nC7H16', 'nC8H18', 'nC10H22',
     'CO2', 'N2',
 }
