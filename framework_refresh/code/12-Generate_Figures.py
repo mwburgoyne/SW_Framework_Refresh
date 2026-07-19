@@ -145,6 +145,7 @@ EXCLUDE_SOURCES = {
     'CH4': {'Blount 1982', 'McGee 1981'},
     'CO2': {'Prutton & Savage 1945'},
     'H2S': {'Barrett 1988'},
+    'H2': {'Gillespie 1980'},
 }
 
 
@@ -1929,7 +1930,7 @@ def parity_plot_gas(gas, df, output_dir=OUTPUT_DIR):
 
             if has_sw:
                 try:
-                    vle_fw2 = SWBinaryVLE(gas, salinity_molal=0.0)
+                    vle_fw2 = SWBinaryVLE(gas, salinity_molal=m, framework='sw_original')
                     kij_sw_br = _appendix_sw_kij_aq(gas, T, m)
                     x_sw_br = vle_fw2._calc_x_with_kij(T, P_Pa, kij_sw_br)
                     if gas == 'H2S':
@@ -2155,10 +2156,11 @@ def _parity_panel_br(ax, gas, df):
         except Exception:
             pass
 
-        # S&W original
+        # S&W original — constructor salinity keeps the S&W alpha csw term;
+        # the manual kij injection then matches the engine's auto path.
         if has_sw:
             try:
-                vle_sw_br = SWBinaryVLE(gas, salinity_molal=0.0, framework='sw_original')
+                vle_sw_br = SWBinaryVLE(gas, salinity_molal=m, framework='sw_original')
                 kij_sw_br = _appendix_sw_kij_aq(gas, T, m)
                 x_sw_br = vle_sw_br._calc_x_with_kij(T, P_Pa, kij_sw_br)
                 if gas == 'H2S':

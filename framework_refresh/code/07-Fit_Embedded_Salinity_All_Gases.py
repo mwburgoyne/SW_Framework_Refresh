@@ -53,7 +53,7 @@ from _lib_vle_engine import (
     kij_aq_ch4, KIJ_AQ_PROPOSED,
 )
 
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'data')
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'data')
 
 
 # =============================================================================
@@ -1196,7 +1196,7 @@ def generate_ks_plots(all_results):
     plt.tight_layout()
 
     # Save
-    fig_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'manuscript2', 'figures')
+    fig_dir = os.path.join(os.path.dirname(__file__), '..', 'manuscript', 'figures')
     os.makedirs(fig_dir, exist_ok=True)
 
     for ext in ['pdf', 'png']:

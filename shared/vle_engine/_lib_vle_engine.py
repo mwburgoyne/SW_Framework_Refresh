@@ -1854,7 +1854,7 @@ class SWMultiComponentFlash:
     """
 
     def __init__(self, component_names: List[str], salinity_molal: float = 0.0,
-                 framework: str = 'proposed'):
+                 framework: str = 'proposed', salinity_method: str = 'gamma_phi'):
         if 'H2O' not in component_names:
             raise ValueError("H2O must be in component list")
         if framework not in ('proposed', 'sw_original', 'dropin'):
@@ -1864,6 +1864,7 @@ class SWMultiComponentFlash:
         self.nc = len(self.names)
         self.salinity = salinity_molal
         self.framework = framework
+        self.salinity_method = salinity_method
         self.iw = self.names.index('H2O')
         self.Tc = np.array([COMPONENTS[n].Tc for n in self.names])
         self.Pc = np.array([COMPONENTS[n].Pc for n in self.names])
@@ -1901,6 +1902,24 @@ class SWMultiComponentFlash:
                     if mode == 'AQ':
                         val = get_kij_aq(gas, T_K, self.salinity,
                                          framework=self.framework)
+                        # 'embedded' salinity method: salinity enters via
+                        # delta_kij, matching SWBinaryVLE's 'embedded' routing.
+                        # sw_original embedded gases already carry salinity via
+                        # get_kij_aq; non-embedded gases (H2S, H2) fall back to
+                        # the proposed delta, as the binary path does.
+                        if self.salinity_method == 'embedded' and self.salinity > 0:
+                            if (self.framework == 'dropin'
+                                    and gas in EMBEDDED_SALINITY_PARAMS_DROPIN):
+                                val += calc_embedded_delta_kij(
+                                    gas, T_K, self.salinity,
+                                    params=EMBEDDED_SALINITY_PARAMS_DROPIN[gas])
+                            elif (self.framework == 'proposed'
+                                    and gas in EMBEDDED_SALINITY_PARAMS):
+                                val += calc_embedded_delta_kij(gas, T_K, self.salinity)
+                            elif (self.framework == 'sw_original'
+                                    and gas not in _SW_GASES_WITH_EMBEDDED_SALINITY
+                                    and gas in EMBEDDED_SALINITY_PARAMS):
+                                val += calc_embedded_delta_kij(gas, T_K, self.salinity)
                     else:
                         val = get_kij_na(gas, T_K)
                 else:
@@ -2035,6 +2054,11 @@ class SWMultiComponentFlash:
 
         for i in range(self.nc):
             if self.names[i] != 'H2O':
+                # sw_original embeds salinity in kij for HC/CO2/N2; applying a
+                # Sechenov gamma as well would double-count salting-out.
+                if (self.framework == 'sw_original'
+                        and self.names[i] in _SW_GASES_WITH_EMBEDDED_SALINITY):
+                    continue
                 if ks_override and self.names[i] in ks_override:
                     ks = ks_override[self.names[i]]
                 else:
@@ -2179,7 +2203,7 @@ class SWMultiComponentFlash:
         - 'explicit': Freshwater flash first, then post-solve Sechenov
           correction. Slight mass balance error for concentrated systems.
         - 'embedded': Use kij(csw) with embedded salinity (original S&W).
-          Only available for HC/CO2/N2. H2 falls back to gamma_phi.
+          sw_original embeds csw in kij for HC/CO2/N2; H2S and H2 use the proposed delta_kij fallback.
 
         Args:
             T_K: Temperature in Kelvin
@@ -2206,6 +2230,10 @@ class SWMultiComponentFlash:
         # Handle backward compatibility
         if salinity_for_sechenov > 0 and salinity_method == 'gamma_phi':
             salinity_method = 'explicit'
+
+        # build_kij_matrix reads instance state; keep it in sync with the
+        # per-call salinity_method so 'embedded' applies the delta_kij.
+        self.salinity_method = salinity_method
 
         # Calculate gamma for gamma-phi method
         gamma_aq = None
@@ -2242,6 +2270,11 @@ class SWMultiComponentFlash:
                 x_brine = x_aq.copy()
                 for i in range(self.nc):
                     if self.names[i] != 'H2O':
+                        # Same double-count guard as calc_gamma: sw_original
+                        # embedded gases already carry salinity in kij.
+                        if (self.framework == 'sw_original'
+                                and self.names[i] in _SW_GASES_WITH_EMBEDDED_SALINITY):
+                            continue
                         if ks_override and self.names[i] in ks_override:
                             ks = ks_override[self.names[i]]
                         else:
@@ -2294,7 +2327,7 @@ def calc_gas_brine_equilibrium(
       Algebraically equivalent to gamma_phi for dilute systems.
 
     - 'embedded': Original S&W salinity in kij (Eqs 12-15). Available for
-      HC/CO2/N2. H2 falls back to gamma_phi.
+      HC/CO2/N2; H2S and H2 use the proposed delta_kij fallback.
 
     Args:
         salinity_wt_pct: Brine salinity in weight percent NaCl

@@ -47,7 +47,7 @@ from _lib_vle_engine import (
     kij_aq_c3h8_dropin, kij_aq_hydrocarbon,
 )
 
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'data')
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'data')
 
 
 # =============================================================================
