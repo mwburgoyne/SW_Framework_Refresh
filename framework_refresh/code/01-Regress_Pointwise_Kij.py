@@ -178,6 +178,12 @@ def regress_kij_aq(vle: SWBinaryVLE, T_K: float, P_Pa: float,
     def objective(kij):
         try:
             x_calc = vle._calc_x_with_kij(T_K, P_Pa, kij)
+            # TODO(post-submission): x_calc can be np.nan (slips through the
+            # comparisons below and poisons minimize_scalar); the 500-point
+            # grid-scan fallback rescues those cases, so results are correct,
+            # but an explicit isfinite guard here would make the fallback
+            # rarely needed. Left unchanged for now so the published C2/C3
+            # correlation fits remain bit-reproducible against this code path.
             if x_calc is None or x_calc <= 0 or x_calc >= 1:
                 return 1e10
             # Relative error squared
@@ -249,23 +255,43 @@ def regress_kij_na(vle: SWBinaryVLE, T_K: float, P_Pa: float,
     def objective(kij):
         try:
             y_calc = vle.calc_water_content_with_kij(T_K, P_Pa, kij)
-            if y_calc is None or y_calc <= 0 or y_calc >= 1:
+            # NOTE: the hardened solver returns np.nan (not None) when no root
+            # exists; nan slips through <=/>= comparisons and poisons
+            # minimize_scalar, so it must be caught explicitly.
+            if y_calc is None or not np.isfinite(y_calc) or y_calc <= 0 or y_calc >= 1:
                 return 1e10
             # Relative error squared
             return ((y_calc - y_H2O_exp) / max(y_H2O_exp, 1e-6))**2
         except:
             return 1e10
 
+    def refine(lo, hi):
+        return minimize_scalar(objective, bounds=(lo, hi), method='bounded',
+                               options={'xatol': 1e-5, 'maxiter': 100})
+
     try:
-        result = minimize_scalar(objective, bounds=kij_bounds, method='bounded',
-                                options={'xatol': 1e-5, 'maxiter': 100})
+        # Coarse scan first: the hardened water-content solver (2026-07-19)
+        # returns no root outside the valid kij basin, so the objective has wide
+        # 1e10 plateaus that defeat bounded minimization directly. Locate the
+        # valid basin on a grid, then refine locally around the best grid point.
+        grid = np.linspace(kij_bounds[0], kij_bounds[1], 31)
+        scanned = [(objective(k), k) for k in grid]
+        finite = [(f, k) for f, k in scanned if f < 1e9]
+        if not finite:
+            grid2 = np.linspace(-1.0, 1.5, 51)
+            scanned = [(objective(k), k) for k in grid2]
+            finite = [(f, k) for f, k in scanned if f < 1e9]
+            if not finite:
+                return None, False
+        _, k_best = min(finite)
+        step = 0.1
+        result = refine(max(-1.0, k_best - step), min(1.5, k_best + step))
 
         if result.fun < 0.01:
             return result.x, True
         else:
             # Try wider bounds
-            result2 = minimize_scalar(objective, bounds=(-1.0, 1.5), method='bounded',
-                                     options={'xatol': 1e-5, 'maxiter': 100})
+            result2 = refine(-1.0, 1.5)
             if result2.fun < result.fun:
                 return result2.x, result2.fun < 0.04
             return result.x, result.fun < 0.04

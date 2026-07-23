@@ -46,8 +46,8 @@ SW_KIJ_NA = {
     'N2': 0.4778,
     'H2': 0.468,
     'C2H6': 0.4920,
-    'C3H8': 0.5070,
-    'nC4H10': 0.5080,
+    'C3H8': 0.5525,   # S&W 1992 Table 5 (0.5070 pre-2026-07-23 was a transcription error)
+    'nC4H10': 0.5091, # S&W 1992 Table 5 (0.5080 pre-2026-07-23 was a transcription error)
 }
 
 # Grid search ranges (gas-specific)
@@ -116,6 +116,14 @@ def load_and_filter(gas, csv_path='../../shared/data/pointwise_kij_results.csv')
     n_total = len(df_work)
 
     stats = {'n_total': n_total}
+
+    # No data for this gas (e.g. nC4H10 absent from pointwise CSV): return early
+    if n_total == 0:
+        stats['n_bound_excluded'] = 0
+        stats['p_min'] = P_MIN_OVERRIDE.get(gas, DEFAULT_P_MIN)
+        stats['n_low_p_excluded'] = 0
+        stats['n_final'] = 0
+        return df_work, stats
 
     # Bound-hitting filter
     bound_mask = df_work['kij_NA'].apply(is_bound_hitting)
@@ -383,7 +391,7 @@ def analyze_gas(gas, df, write):
         if len(df_high_p) >= 5:
             write(f"\n  --- Sensitivity: P >= {P_SENSITIVITY} bar (n={len(df_high_p)}) ---")
             if gas == 'H2S':
-                mare_sw_hp, _ = calc_mare_y_h2o_func(df_high_p, gas, kij_na_h2s)
+                mare_sw_hp, _ = calc_mare_y_h2o_func(df_high_p, gas, kij_na_h2s_sw_eq17)
             else:
                 mare_sw_hp, _, _ = calc_mare_y_h2o(df_high_p, gas, SW_KIJ_NA[gas])
             kij_opt_hp, mare_opt_hp, _ = optimize_constant(df_high_p, gas, search_range)
