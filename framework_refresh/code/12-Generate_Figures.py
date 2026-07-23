@@ -200,8 +200,8 @@ PROPOSED_KIJ_NA = {
     'N2': 0.4778,    # S&W retained
     'H2': 0.4680,    # This work
     'C2H6': 0.4920,  # S&W retained
-    'C3H8': 0.5070,  # S&W retained
-    'nC4H10': 0.5080, # S&W retained
+    'C3H8': 0.5525,  # S&W retained (S&W 1992 Table 5; 0.5070 pre-2026-07-23 was a transcription error)
+    'nC4H10': 0.5091, # S&W retained (S&W 1992 Table 5; 0.5080 pre-2026-07-23 was a transcription error)
 }
 
 
@@ -1098,10 +1098,15 @@ def figure_ks_h2(df_ks):
                edgecolors='k', linewidths=0.5, zorder=10,
                label='Gerecke & Bittrich 1971')
 
-    # T-O 2021 data points (2 points, original in natural log basis)
+    # T-O 2021 at their two directly measured temperatures (pure-water reference
+    # exists only at 323.15 and 423.15 K). Values from their Eq 22 cubic
+    # ks(theta) with Table 5 coefficients, theta = T/273.15 - 1 (ln basis);
+    # previous hardcoded values (0.130, 0.170) were digitised from their Fig 12.
     LN_TO_LOG10 = 2.303
     T_TO = np.array([323.15, 423.15]) - 273.15
-    ks_TO_ln = np.array([0.130, 0.170])
+    _TO_D = np.array([0.2898, -1.4330, 3.9584, -3.1666])
+    _theta = np.array([323.15, 423.15]) / 273.15 - 1.0
+    ks_TO_ln = np.polyval(_TO_D[::-1], _theta)
     ks_TO_pts = ks_TO_ln / LN_TO_LOG10
     ax.scatter(T_TO, ks_TO_pts, c='cyan', marker='D', s=100, alpha=0.9,
                edgecolors='k', linewidths=1.5, zorder=12,
