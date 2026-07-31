@@ -2,7 +2,7 @@
 
 Code and data supporting a refresh of the Søreide-Whitson (S&W, 1992) Peng-Robinson framework for gas-water-brine phase equilibria: updated binary interaction parameter (BIP) correlations for eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀), developed from approximately 2,000 pointwise-regressed BIP values, including extension of the framework to hydrogen for underground storage. The correlations retain the original S&W water alpha function and are drop-in compatible with existing simulator implementations: only the BIP correlation coefficients need updating.
 
-The work is described in **Refreshed Søreide-Whitson Framework for Gas Solubility in Water and Brine with Extension to Hydrogen** (Burgoyne & Nielsen, accepted for publication in *Fluid Phase Equilibria*), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper.
+The work is described in **Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen** (Burgoyne & Nielsen, 2026, *Fluid Phase Equilibria*, 114824, [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824)), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper.
 
 ## Framework summary
 
@@ -131,4 +131,4 @@ Mark Burgoyne (Santos Ltd) and Markus H. Nielsen (Whitson AS).
 - Søreide, I., Whitson, C.H., 1992. Peng-Robinson predictions for hydrocarbons, CO₂, N₂, and H₂S with pure water and NaCl brine. *Fluid Phase Equilib.* 77, 217-240. [doi:10.1016/0378-3812(92)85105-H](https://doi.org/10.1016/0378-3812(92)85105-H)
 - Dubessy, J., Tarantola, A., Sterpenich, J., 2005. Modelling of liquid-vapour equilibria in the H₂O-CO₂-NaCl and H₂O-H₂S-NaCl systems to 270 °C. *Oil Gas Sci. Technol. - Rev. IFP* 60, 339-355. [doi:10.2516/ogst:2005022](https://doi.org/10.2516/ogst:2005022)
 - Akinfiev, N.N., Majer, V., Shvarov, Yu.V., 2016. Thermodynamic description of H₂S-H₂O-NaCl solutions at temperatures to 573 K and pressures to 40 MPa. *Chem. Geol.* 424, 1-11. [doi:10.1016/j.chemgeo.2016.01.006](https://doi.org/10.1016/j.chemgeo.2016.01.006)
-- The paper listed at the top of this README (under review); full experimental-source citations are given there.
+- Burgoyne, M., Nielsen, M.H., 2026. Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen. *Fluid Phase Equilib.* 114824. [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824) (the paper; full experimental-source citations are given there)

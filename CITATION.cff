@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper below."
+title: "Søreide-Whitson Framework Refresh"
+authors:
+  - family-names: Burgoyne
+    given-names: Mark
+  - family-names: Nielsen
+    given-names: Markus H.
+repository-code: "https://github.com/mwburgoyne/SW_Framework_Refresh"
+preferred-citation:
+  type: article
+  title: "Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen"
+  authors:
+    - family-names: Burgoyne
+      given-names: Mark
+    - family-names: Nielsen
+      given-names: Markus H.
+  journal: "Fluid Phase Equilibria"
+  year: 2026
+  doi: "10.1016/j.fluid.2026.114824"
