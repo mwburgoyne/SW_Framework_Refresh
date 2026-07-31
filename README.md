@@ -125,10 +125,3 @@ Dependencies: numpy, scipy, pandas, matplotlib, openpyxl.
 ## Authors
 
 Mark Burgoyne (Santos Ltd) and Markus H. Nielsen (Whitson AS).
-
-## References
-
-- Søreide, I., Whitson, C.H., 1992. Peng-Robinson predictions for hydrocarbons, CO₂, N₂, and H₂S with pure water and NaCl brine. *Fluid Phase Equilib.* 77, 217-240. [doi:10.1016/0378-3812(92)85105-H](https://doi.org/10.1016/0378-3812(92)85105-H)
-- Dubessy, J., Tarantola, A., Sterpenich, J., 2005. Modelling of liquid-vapour equilibria in the H₂O-CO₂-NaCl and H₂O-H₂S-NaCl systems to 270 °C. *Oil Gas Sci. Technol. - Rev. IFP* 60, 339-355. [doi:10.2516/ogst:2005022](https://doi.org/10.2516/ogst:2005022)
-- Akinfiev, N.N., Majer, V., Shvarov, Yu.V., 2016. Thermodynamic description of H₂S-H₂O-NaCl solutions at temperatures to 573 K and pressures to 40 MPa. *Chem. Geol.* 424, 1-11. [doi:10.1016/j.chemgeo.2016.01.006](https://doi.org/10.1016/j.chemgeo.2016.01.006)
-- Burgoyne, M., Nielsen, M.H., 2026. Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen. *Fluid Phase Equilib.* 114824. [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824) (the paper; full experimental-source citations are given there)
