@@ -98,6 +98,18 @@ with $\Delta k_{ij} = (a_0 + a_1 T_r + a_2 T_r^2) \cdot m$ for seven gases, and 
 | C₃H₈ | 369.80 | 0.0606 | −0.1165 | 0.0772 | --- | --- | 0.31 |
 | nC₄H₁₀ | 425.20 | 0.0488 | −0.1072 | 0.0836 | --- | --- | 0.26 |
 
+## Helium (post-publication extension, October 2026)
+
+Helium has been added to the engine (`shared/vle_engine/_lib_vle_engine.py`) after publication. **It is not part of the published paper** and was not peer reviewed with it; the published eight-gas results are unchanged by the addition (the full MARE report reproduces exactly).
+
+- Component constants are NIST (Ortiz-Vega et al. 2019 equation of state): Tc 5.1953 K, Pc 0.228323 MPa, ω −0.38354, Tb 4.2238 K. These are not the helium constants of the 5-component Z-factor model, whose helium Tc is a deliberately non-standard 6.35 °R tuned for viscosity.
+- Aqueous BIP (dropin, S&W water alpha): kij_AQ = (−71.6152 + Tr)/(−0.394962 + 0.505807 Tr), Tr = T/5.1953 K, fitted L1 to 130 fugacity-targeted pointwise values from Gardiner & Smith (1972, doi:10.1021/j100652a019), Gerth (1983, doi:10.1007/BF00648669), Abrosimov & Lebedeva (2013, evaluated values, doi:10.1134/S0036023613070024), Pray et al. (1952, doi:10.1021/ie50509a058) and Potter & Clynne (1978, doi:10.1007/BF00650811), 20-163 °C and 1-1000 bar. Solubility mean absolute error 2.4-6.8% by source below 150 °C, with the pressure bias inherent to a kij(T) form. Not validated above 200 °C. The same kij is mapped, unrefitted, into the proposed and sw_original dispatches.
+- Embedded salinity BIP: Δkij = (0.359923 − 0.0095344 Tr + 7.00398e-5 Tr²) m, fitted to S&W Eq 8 Sechenov targets (Tb 4.2238 K) at 25-100 °C; Eq 8 matches measured helium Sechenov coefficients in NaCl to 0.007 mean absolute error.
+- kij_NA = 0.468 is the H2 value used as a **surrogate**: no helium water-content data were found, so water content of helium-rich gas is unvalidated.
+- Flash K-value initialisation uses a fitted Cross-form row (Wilson gives K < 1 for helium).
+
+The same helium extension ships in pyResToolbox 3.8.3, together with a dissolved-helium volume for brine density.
+
 ## Repository layout
 
 ```
