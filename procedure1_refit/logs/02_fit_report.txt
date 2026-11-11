@@ -1,0 +1,10 @@
+Procedure-1 kij_AQ correlations (S&W water alpha, L1, published forms and fit set)
+
+CO2   cubic    n= 606 MAE=0.0087 max=0.1642 T=0-200C coef=['-1.55021', '0.00932272', '-1.9777e-05', '1.52773e-08'] | corr minus published dropin: mean -0.0065, range -0.0295 to -0.0002
+H2S   exp      n= 405 MAE=0.0070 max=0.2035 T=21-200C coef=['-82.781', '1.73949e+06', '-8585.06', '0.251831'] | corr minus published dropin: mean -0.0127, range -0.0672 to -0.0002
+CH4   rational n= 115 MAE=0.0076 max=0.3877 T=25-171C coef=['-2.19768', '0.715015', '0.894503'] | corr minus published dropin: mean -0.0039, range -0.0136 to +0.0004
+N2    linear   n= 127 MAE=0.0104 max=0.0336 T=25-200C coef=['-1.6211', '0.00329527'] | corr minus published dropin: mean -0.0042, range -0.0214 to +0.0042
+H2    rational n= 154 MAE=0.0350 max=0.2632 T=0-179C coef=['-16.0198', '0.731236', '0.681362'] | corr minus published dropin: mean -0.0149, range -0.0664 to +0.0048
+C2H6  rational n=  95 MAE=0.0063 max=0.0573 T=2-200C coef=['-1.27135', '-0.0292714', '1.63718'] | corr minus published dropin: mean -0.0030, range -0.0081 to -0.0003
+C3H8  rational n=  59 MAE=0.0015 max=0.0238 T=6-149C coef=['-1.15678', '0.208946', '1.81066'] | corr minus published dropin: mean -0.0013, range -0.0053 to +0.0005
+He    rational n= 130 MAE=0.0184 max=0.1238 T=20-163C coef=['-71.6155', '-0.164407', '0.501737'] | corr minus published dropin: mean -0.0002, range -0.0002 to +0.0008

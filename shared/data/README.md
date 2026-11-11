@@ -14,6 +14,9 @@ Experimental Sechenov coefficients extracted from matched freshwater/brine pairs
 ### blount_ch4_salinity_pair_ks.csv
 Implied Sechenov coefficients from the Blount & Price (1982) CH₄ brine dataset. Retained for the exclusion diagnostics reported in the paper (Section 5.5); this source is excluded from validation.
 
+### he_solubility.csv
+Helium solubility in water and NaCl brine (post-publication extension, not in the paper): 346 points from Gardiner & Smith (1972), Gerth (1983), Abrosimov & Lebedeva (2013, evaluated values), Pray et al. (1952) and Potter & Clynne (1978), 20-163 °C, 1-1,000 bar, 0-6 mol/kg NaCl; each source block in the file header carries its DOI. Columns: helium partial pressure `p_He_bar`, `x_Gas`, `Sal_m`, and `Use` (fit / validate / exclude, as used for the helium kij fit). Read with `comment='#'`. Used by `procedure1_refit/`.
+
 ## Regressed results
 
 ### pointwise_kij_results_sw_alpha.csv

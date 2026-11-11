@@ -1,0 +1,11 @@
+Embedded Delta-kij, procedure 1: Delta = (a0 + a1 Tr + a2 Tr^2) m [+ (b0 + b1 Tr) m^2 for CO2]
+
+CO2     Tc=304.2    quadratic coef=['0.0330207', '-0.0649394', '0.0440235', '0.0068653', '-0.00745116'] n_brine=192 MAE(x vs Sechenov target)=2.74% max=11.51%
+H2S     Tc=373.2    linear    coef=['0.0401634', '-0.0752107', '0.0405943'] n_brine=224 MAE(x vs Sechenov target)=2.18% max=13.57%
+CH4     Tc=190.6    linear    coef=['0.130847', '-0.130051', '0.0395973'] n_brine=192 MAE(x vs Sechenov target)=0.92% max=3.05%
+N2      Tc=126.1    linear    coef=['0.214028', '-0.144316', '0.0297785'] n_brine=192 MAE(x vs Sechenov target)=0.98% max=3.72%
+H2      Tc=33.145   linear    coef=['0.367294', '-0.0627884', '0.00305557'] n_brine=192 MAE(x vs Sechenov target)=0.63% max=1.80%
+C2H6    Tc=305.4    linear    coef=['0.0757861', '-0.119592', '0.0608014'] n_brine=192 MAE(x vs Sechenov target)=1.04% max=3.03%
+C3H8    Tc=369.8    linear    coef=['0.0568411', '-0.108285', '0.0676553'] n_brine=192 MAE(x vs Sechenov target)=1.39% max=2.85%
+nC4H10  Tc=425.2    linear    coef=['0.0451108', '-0.0986844', '0.0719992'] n_brine=192 MAE(x vs Sechenov target)=1.75% max=3.29%
+He      Tc=5.1953   linear    coef=['0.359941', '-0.00953505', '7.00459e-05'] n_brine=128 MAE(x vs Sechenov target)=0.56% max=1.17%
