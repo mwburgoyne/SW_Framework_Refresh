@@ -52,14 +52,14 @@ Fitted to freshwater data only (T ≤ 200 °C) on procedure 1; $T$ in K, $T_r = 
 | Gas | Form | Coefficients | n | MAE($k_{ij}$) | MARE (%) | S&W MARE (%) |
 |---|---|---|---|---|---|---|
 | CO₂ | $c_0 + c_1T + c_2T^2 + c_3T^3$ | $c_0 = -1.5502105835$, $c_1 = 9.3227195169\times10^{-3}$, $c_2 = -1.9777020578\times10^{-5}$, $c_3 = 1.5277320676\times10^{-8}$ | 606 | 0.0087 | 12.4 | 15.3 |
-| H₂S | $a/T + b\,e^{c/T} + d$ | $a = -82.780980134$, $b = 1.7394905144\times10^{6}$, $c = -8585.0633295$, $d = 0.25183060821$ | 405 | 0.0070 | 31.9 (6.8*) | 30.8 (8.0*) |
-| CH₄ | $(A + T_r)/(B + C\,T_r)$, $T_c$ 190.6 K | $A = -2.1976782374$, $B = 0.71501536698$, $C = 0.89450296392$ | 115 | 0.0076 | 3.9 | 3.9 |
+| H₂S | $a/T + b e^{c/T} + d$ | $a = -82.780980134$, $b = 1.7394905144\times10^{6}$, $c = -8585.0633295$, $d = 0.25183060821$ | 405 | 0.0070 | 31.9 (6.8*) | 30.8 (8.0*) |
+| CH₄ | $(A + T_r)/(B + C T_r)$, $T_c$ 190.6 K | $A = -2.1976782374$, $B = 0.71501536698$, $C = 0.89450296392$ | 115 | 0.0076 | 3.9 | 3.9 |
 | N₂ | $a + bT$ | $a = -1.6210963968$, $b = 3.2952725039\times10^{-3}$ | 127 | 0.0104 | 5.3 | 7.2 |
-| H₂ | $(A + T_r)/(B + C\,T_r)$, $T_c$ 33.145 K | $A = -16.019825768$, $B = 0.73123628347$, $C = 0.68136196802$ | 154 | 0.0350 | 11.3 | n/a |
-| C₂H₆ | $(A + T_r)/(B + C\,T_r)$, $T_c$ 305.4 K | $A = -1.2713478883$, $B = -0.029271366247$, $C = 1.6371834535$ | 95 | 0.0063 | 8.4 | 11.3 |
-| C₃H₈ | $(A + T_r)/(B + C\,T_r)$, $T_c$ 369.8 K | $A = -1.1567778736$, $B = 0.20894596747$, $C = 1.8106628711$ | 59 | 0.0015 | 3.4 | 8.9 |
+| H₂ | $(A + T_r)/(B + C T_r)$, $T_c$ 33.145 K | $A = -16.019825768$, $B = 0.73123628347$, $C = 0.68136196802$ | 154 | 0.0350 | 11.3 | n/a |
+| C₂H₆ | $(A + T_r)/(B + C T_r)$, $T_c$ 305.4 K | $A = -1.2713478883$, $B = -0.029271366247$, $C = 1.6371834535$ | 95 | 0.0063 | 8.4 | 11.3 |
+| C₃H₈ | $(A + T_r)/(B + C T_r)$, $T_c$ 369.8 K | $A = -1.1567778736$, $B = 0.20894596747$, $C = 1.8106628711$ | 59 | 0.0015 | 3.4 | 8.9 |
 | nC₄H₁₀ | $-0.9354 + 1.2615 T_r - 0.3696 T_r^2$, $T_c$ 425.2 K | S&W form retained (S&W fitted it on procedure 1) | 27 | --- | --- | --- |
-| He | $(A + T_r)/(B + C\,T_r)$, $T_c$ 5.1953 K | $A = -71.615504934$, $B = -0.16440701914$, $C = 0.50173713895$ | 130 | 0.0184 | 6.3 | n/a |
+| He | $(A + T_r)/(B + C T_r)$, $T_c$ 5.1953 K | $A = -71.615504934$, $B = -0.16440701914$, $C = 0.50173713895$ | 130 | 0.0184 | 6.3 | n/a |
 
 \* Excluding 18 H₂S points (Selleck 1952 at 37.8 °C, where solubility falls as pressure rises, and Suleimenov 1994 at or below 60 °C) that every model misses by 250-1,200%. MARE n for H₂ is 142 (the kij fit uses 154). Helium is a post-publication extension, not peer reviewed. Full-precision values: [`procedure1_refit/results/p1_params.json`](procedure1_refit/results/p1_params.json). Check values ($x_{\mathrm{gas}}$, $y_{\mathrm{H_2O}}$ at three states per gas) for verifying an implementation: [`procedure1_refit/results/check_values.csv`](procedure1_refit/results/check_values.csv).
 
