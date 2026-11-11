@@ -51,7 +51,7 @@ Consequences:
 - **The paper's comparison with S&W 1992 is overstated for CO₂, H₂S and CH₄.** Its S&W column scored S&W's coefficients in the dry-vapour solve rather than the procedure they were fitted with. On procedure 1, S&W 1992 gives 15.3% (CO₂), 30.8% (H₂S) and 3.9% (CH₄) against the paper's 23.0%, 51.3% and 5.8%; the procedure-1 refit gives 12.4%, 31.9% and 3.9%. For N₂, C₂H₆ and C₃H₈ the refit still improves on S&W by 1.9-5.5 points.
 - **The non-aqueous BIPs and the Sechenov models are unaffected** (no $k_{ij}^{\mathrm{NA}}$ re-optimisation on procedure 1 gains more than 0.9 points).
 
-A refit on procedure 1 with the paper's data, forms, routines and Sechenov targets is in `procedure1_refit/`, summarised in the README section "Procedure-1 update" and documented in `procedure1_refit/report/sw_procedure1_refit.pdf`. The published path in `shared/vle_engine/` is unchanged so the paper's numbers still reproduce exactly. pyResToolbox 3.10 and later use the procedure-1 coefficients and solve procedure 1.
+A refit on procedure 1 with the paper's data, forms, routines and Sechenov targets is in `procedure1_refit/`, now the recommended set on the README front page (12 November 2026; the published coefficients moved to `PUBLISHED_COEFFICIENTS.md`), and documented in `procedure1_refit/report/sw_procedure1_refit.pdf`. The published path in `shared/vle_engine/` is unchanged so the paper's numbers still reproduce exactly. pyResToolbox 3.10 and later use the procedure-1 coefficients and solve procedure 1.
 
 ## 6. Helium: procedure-1 coefficients, data and documentation (2026-11-12)
 
