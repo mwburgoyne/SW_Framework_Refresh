@@ -2,13 +2,13 @@
 
 Code and data supporting a refresh of the Søreide-Whitson (S&W, 1992) Peng-Robinson framework for gas-water-brine phase equilibria: updated binary interaction parameter (BIP) correlations for eight gases (CO₂, H₂S, CH₄, N₂, H₂, C₂H₆, C₃H₈, nC₄H₁₀), developed from approximately 2,000 pointwise-regressed BIP values, including extension of the framework to hydrogen for underground storage. The correlations retain the original S&W water alpha function and are drop-in compatible with existing simulator implementations: only the BIP correlation coefficients need updating.
 
-> **Coefficients updated November 2026.** The tables below are the current recommendation: the paper's correlations refitted on Søreide and Whitson's own equilibrium procedure. The paper regressed its aqueous BIPs with the vapour treated as dry gas, so its printed $k_{ij}^{\mathrm{AQ}}$ and embedded salinity coefficients differ from these; they are kept in [PUBLISHED_COEFFICIENTS.md](PUBLISHED_COEFFICIENTS.md) for anyone checking the paper, and [ERRATA](ERRATA.md) item 5 explains the change. Non-aqueous BIPs, Sechenov models and component properties are as published. pyResToolbox 3.10 and later implement these coefficients.
+> **Coefficients updated November 2026.** The tables below are the current recommendation: the paper's correlations refitted on the coupled S&W equilibrium, in which each phase carries its own BIP set (Whitson & Brulé 2000, §9.3). An updated manuscript on this basis, not peer reviewed, is here: **[refit paper draft (PDF)](procedure1_refit/manuscript_REFIT/sw_framework_refresh_REFIT_draft.pdf)**; its Section 3 sets out the equilibrium procedures in use and why this one is adopted. The paper regressed its aqueous BIPs with the vapour treated as dry gas, so its printed $k_{ij}^{\mathrm{AQ}}$ and embedded salinity coefficients differ from these; they are kept in [PUBLISHED_COEFFICIENTS.md](PUBLISHED_COEFFICIENTS.md) for anyone checking the paper, and [ERRATA](ERRATA.md) item 5 explains the change. Non-aqueous BIPs, Sechenov models and component properties are as published. pyResToolbox 3.10 and later implement these coefficients.
 
 The work is described in **Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen** (Burgoyne & Nielsen, 2026, *Fluid Phase Equilibria*, 114824, [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824)), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper. This README gives the recommended relationships; derivations, data treatment and validation detail are in the paper, and the refit is documented in the [technical note](procedure1_refit/report/sw_procedure1_refit.pdf).
 
 ## Framework summary
 
-The S&W framework models gas-water-brine equilibria with the Peng-Robinson EOS, a modified water alpha function carrying temperature and salinity dependence, and two sets of binary interaction parameters: aqueous-phase BIPs ($k_{ij}^{\mathrm{AQ}}$) for the water-rich liquid and non-aqueous BIPs ($k_{ij}^{\mathrm{NA}}$) for every other phase. Solubility and water content come from **one equilibrium** in which the aqueous phase uses $k_{ij}^{\mathrm{AQ}}$ and the vapour uses $k_{ij}^{\mathrm{NA}}$ and carries its equilibrium water (S&W 1992, Eqs. 10a/10b). In a multicomponent flash, give a phase $k_{ij}^{\mathrm{AQ}}$ only when it is on the liquid root and mostly water; a gas-rich phase evaluated with both sets can split spuriously. The coefficients below were fitted this way and are valid only in this procedure. The original S&W water alpha is retained unchanged:
+The S&W framework models gas-water-brine equilibria with the Peng-Robinson EOS, a modified water alpha function carrying temperature and salinity dependence, and two sets of binary interaction parameters: aqueous-phase BIPs ($k_{ij}^{\mathrm{AQ}}$) for the water-rich liquid and non-aqueous BIPs ($k_{ij}^{\mathrm{NA}}$) for every other phase. Solubility and water content come from **one equilibrium** in which the aqueous phase uses $k_{ij}^{\mathrm{AQ}}$ and the vapour uses $k_{ij}^{\mathrm{NA}}$ and carries its equilibrium water: S&W's phase-specific mixture parameters (1992, Eqs. 10a/10b) applied simultaneously, as Whitson & Brulé (2000, §9.3) describe. The 1992 paper does not state how its equilibrium was solved; NeqSim and pyResToolbox solve this coupled form. In a multicomponent flash, give a phase $k_{ij}^{\mathrm{AQ}}$ only when it is on the liquid root and mostly water; a gas-rich phase evaluated with both sets can split spuriously. The coefficients below were fitted this way and are valid only in this procedure. The original S&W water alpha is retained unchanged:
 
 $$\sqrt{\alpha_{\mathrm{H_2O}}} = 1 + 0.4530\left[1 - T_r\left(1 - 0.0103 c_{\mathrm{sw}}^{1.1}\right)\right] + 0.0034\left(T_r^{-3} - 1\right)$$
 
@@ -21,7 +21,7 @@ Three ways of combining the two BIP sets appear in practice. They differ only in
 | Procedure | Non-aqueous phase | Used by |
 |---|---|---|
 | 0, dry vapour | pure gas at total pressure | the paper (regression and every MARE); [published coefficients](PUBLISHED_COEFFICIENTS.md) |
-| 1, S&W Eqs. 10a/10b | one equilibrium; aqueous phase $k_{ij}^{\mathrm{AQ}}$, vapour $k_{ij}^{\mathrm{NA}}$ | S&W 1992; **the coefficients on this page** |
+| 1, coupled | one equilibrium; aqueous phase $k_{ij}^{\mathrm{AQ}}$, vapour $k_{ij}^{\mathrm{NA}}$ | Whitson & Brulé (2000, §9.3); NeqSim; pyResToolbox 3.10; **the coefficients on this page** |
 | 2, dual flash | $k_{ij}^{\mathrm{AQ}}$ in every phase for the solubility flash | Whitson & Brulé (2000, §9.3) shortcut for single-BIP EOS software |
 
 The difference grows with temperature and falls with pressure. In a procedure-1 calculation the published $k_{ij}^{\mathrm{AQ}}$ underpredict solubility by 12-29% (bias) at 150-200 °C for CO₂, H₂S, CH₄ and H₂; the refit removes that bias (−6 to +3%). Below 60 °C the two sets agree within 2 percentage points of MARE. Every pointwise $k_{ij}^{\mathrm{AQ}}$ moves down, by less than 0.001 at or below 60 °C and by 0.013-0.086 (gas mean) at 150-200 °C.
@@ -58,7 +58,7 @@ Fitted to freshwater data only (T ≤ 200 °C) on procedure 1; $T$ in K, $T_r = 
 | H₂ | $(A + T_r)/(B + C T_r)$, $T_c$ 33.145 K | $A = -16.019825768$, $B = 0.73123628347$, $C = 0.68136196802$ | 154 | 0.0350 | 11.3 | n/a |
 | C₂H₆ | $(A + T_r)/(B + C T_r)$, $T_c$ 305.4 K | $A = -1.2713478883$, $B = -0.029271366247$, $C = 1.6371834535$ | 95 | 0.0063 | 8.4 | 11.3 |
 | C₃H₈ | $(A + T_r)/(B + C T_r)$, $T_c$ 369.8 K | $A = -1.1567778736$, $B = 0.20894596747$, $C = 1.8106628711$ | 59 | 0.0015 | 3.4 | 8.9 |
-| nC₄H₁₀ | $-0.9354 + 1.2615 T_r - 0.3696 T_r^2$, $T_c$ 425.2 K | S&W form retained (S&W fitted it on procedure 1) | 27 | --- | --- | --- |
+| nC₄H₁₀ | $-0.9354 + 1.2615 T_r - 0.3696 T_r^2$, $T_c$ 425.2 K | S&W form retained | 27 | --- | --- | --- |
 | He | $(A + T_r)/(B + C T_r)$, $T_c$ 5.1953 K | $A = -71.615504934$, $B = -0.16440701914$, $C = 0.50173713895$ | 130 | 0.0184 | 6.3 | n/a |
 
 \* Excluding 18 H₂S points (Selleck 1952 at 37.8 °C, where solubility falls as pressure rises, and Suleimenov 1994 at or below 60 °C) that every model misses by 250-1,200%. MARE n for H₂ is 142 (the kij fit uses 154). Helium is a post-publication extension, not peer reviewed. Full-precision values: [`procedure1_refit/results/p1_params.json`](procedure1_refit/results/p1_params.json). Check values ($x_{\mathrm{gas}}$, $y_{\mathrm{H_2O}}$ at three states per gas) for verifying an implementation: [`procedure1_refit/results/check_values.csv`](procedure1_refit/results/check_values.csv).
@@ -121,7 +121,7 @@ with $\Delta k_{ij} = (a_0 + a_1 T_r + a_2 T_r^2) \cdot m$, and for CO₂ an add
 
 ## Fit quality against the paper
 
-Freshwater solubility MARE (%), bias in brackets: published coefficients in the paper's dry-vapour solve (Pub-P0, as published), published coefficients on procedure 1 (Pub-P1), S&W 1992 on procedure 1 as it was fitted (SW-P1), and the recommended coefficients (New-P1).
+Freshwater solubility MARE (%), bias in brackets: published coefficients in the paper's dry-vapour solve (Pub-P0, as published), published coefficients on procedure 1 (Pub-P1), S&W 1992 on procedure 1 (SW-P1), and the recommended coefficients (New-P1).
 
 | Gas | n | Pub-P0 | Pub-P1 | SW-P1 | New-P1 |
 |---|---|---|---|---|---|
@@ -159,7 +159,7 @@ shared/
 framework_refresh/    the paper's analysis pipeline (code/00-12): pointwise kij regression,
                       correlation fitting, Sechenov analysis, embedded-salinity fits,
                       K-value initialisation, MARE validation, figures
-procedure1_refit/     the recommended coefficients: refit on S&W's procedure 1 (solver,
+procedure1_refit/     the recommended coefficients: refit on procedure 1, coupled (solver,
                       refit, validation, results, technical note); see its README
 PUBLISHED_COEFFICIENTS.md   the paper's coefficients as printed
 ```

@@ -4,7 +4,7 @@ This directory is separate from the published method on purpose. Nothing here mo
 
 ## Why
 
-The published paper (Fluid Phase Equilibria 114824) regressed kij_AQ, and computed every solubility MARE, with the vapour treated as pure dry gas at total pressure ("procedure 0", `SWBinaryVLE._calc_x_with_kij`). Søreide and Whitson (1992) fitted their correlations with one equilibrium in which the aqueous phase uses kij_AQ and the non-aqueous phase uses kij_NA, with the vapour carrying its equilibrium water ("procedure 1", their Eqs. 10a/10b). The difference is the water dilution of the gas in the vapour, which grows with temperature and falls with pressure. B. Younus (Whitson AS, November 2026) raised the procedure question.
+The published paper (Fluid Phase Equilibria 114824) regressed kij_AQ, and computed every solubility MARE, with the vapour treated as pure dry gas at total pressure ("procedure 0", `SWBinaryVLE._calc_x_with_kij`). Procedure 1 is one equilibrium in which the aqueous phase uses kij_AQ and the non-aqueous phase uses kij_NA, with the vapour carrying its equilibrium water: S&W's phase-specific mixture parameters (1992, Eqs. 10a/10b) applied simultaneously, as Whitson & Brulé (2000, §9.3) describe and NeqSim and pyResToolbox solve. The 1992 paper does not state how its regression was solved; see the refit paper draft (`manuscript_REFIT/`), Section 3. The difference is the water dilution of the gas in the vapour, which grows with temperature and falls with pressure. B. Younus (Whitson AS, November 2026) raised the procedure question.
 
 ## What
 
