@@ -4,7 +4,7 @@ Code and data supporting a refresh of the Søreide-Whitson (S&W, 1992) Peng-Robi
 
 > **Coefficients updated November 2026.** The tables below are the current recommendation: the paper's correlations refitted on the coupled S&W equilibrium, in which each phase carries its own BIP set (Whitson & Brulé 2000, §9.3). An updated manuscript on this basis, not peer reviewed, is here: **[refit paper draft (PDF)](procedure1_refit/manuscript_REFIT/sw_framework_refresh_REFIT_draft.pdf)**; its Section 3 sets out the equilibrium procedures in use and why this one is adopted. The paper regressed its aqueous BIPs with the vapour treated as dry gas, so its printed $k_{ij}^{\mathrm{AQ}}$ and embedded salinity coefficients differ from these; they are kept in [PUBLISHED_COEFFICIENTS.md](PUBLISHED_COEFFICIENTS.md) for anyone checking the paper, and [ERRATA](ERRATA.md) item 5 explains the change. Non-aqueous BIPs, Sechenov models and component properties are as published. pyResToolbox 3.10 and later implement these coefficients.
 
-The work is described in **Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen** (Burgoyne & Nielsen, 2026, *Fluid Phase Equilibria*, 114824, [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824)), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper. This README gives the recommended relationships; derivations, data treatment and validation detail are in the paper, and the refit is documented in the [technical note](procedure1_refit/report/sw_procedure1_refit.pdf).
+The work is described in **Refreshed Søreide-Whitson framework for gas solubility in water and brine with extension to hydrogen** (Burgoyne & Nielsen, 2026, *Fluid Phase Equilibria*, 114824, [doi:10.1016/j.fluid.2026.114824](https://doi.org/10.1016/j.fluid.2026.114824)), referred to below as the paper. This README summarises the recommended relationships; derivations, data treatment, and validation detail are in the paper. This README gives the recommended relationships; derivations, data treatment and validation detail are in the paper, and the refit is documented in the [refit paper draft](procedure1_refit/manuscript_REFIT/sw_framework_refresh_REFIT_draft.pdf).
 
 ## Framework summary
 
@@ -141,7 +141,7 @@ H₂ is the one gas where the refit scores worse than the published solve (11.3%
 Helium was added after publication. **It is not part of the published paper** and was not peer reviewed with it.
 
 - Component constants are NIST (Ortiz-Vega et al. 2019 equation of state). These are not the helium constants of the 5-component Z-factor model, whose helium Tc is a deliberately non-standard 6.35 °R tuned for viscosity.
-- Aqueous BIP fitted L1 to 130 fugacity-targeted pointwise values from Gardiner & Smith (1972, doi:10.1021/j100652a019), Gerth (1983, doi:10.1007/BF00648669), Abrosimov & Lebedeva (2013, evaluated values, doi:10.1134/S0036023613070024), Pray et al. (1952, doi:10.1021/ie50509a058) and Potter & Clynne (1978, doi:10.1007/BF00650811), 20-163 °C and 1-1000 bar. Not validated above 200 °C. Per-source errors are in the technical note's helium section.
+- Aqueous BIP fitted L1 to 130 fugacity-targeted pointwise values from Gardiner & Smith (1972, doi:10.1021/j100652a019), Gerth (1983, doi:10.1007/BF00648669), Abrosimov & Lebedeva (2013, evaluated values, doi:10.1134/S0036023613070024), Pray et al. (1952, doi:10.1021/ie50509a058) and Potter & Clynne (1978, doi:10.1007/BF00650811), 20-163 °C and 1-1000 bar. Not validated above 200 °C. Per-source errors are in the refit paper draft's helium appendix.
 - S&W Eq. 8 matches measured helium Sechenov coefficients in NaCl to 0.0067 mean absolute deviation (n = 48, 25-100 °C).
 - $k_{ij}^{\mathrm{NA}}$ = 0.468 is a surrogate, so the water content of helium-rich gas is unvalidated.
 - Flash K-value initialisation uses a fitted Cross-form row (Wilson gives K < 1 for helium).
@@ -160,7 +160,7 @@ framework_refresh/    the paper's analysis pipeline (code/00-12): pointwise kij 
                       correlation fitting, Sechenov analysis, embedded-salinity fits,
                       K-value initialisation, MARE validation, figures
 procedure1_refit/     the recommended coefficients: refit on procedure 1, coupled (solver,
-                      refit, validation, results, technical note); see its README
+                      refit, validation, results, refit paper draft); see its README
 PUBLISHED_COEFFICIENTS.md   the paper's coefficients as printed
 ```
 

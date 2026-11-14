@@ -18,7 +18,7 @@ The published paper (Fluid Phase Equilibria 114824) regressed kij_AQ, and comput
 | `07_embedded_p1.py` | embedded Delta-kij via script 07a routines (same Sechenov targets and grids) |
 | `10_validate_fresh_p1.py`, `10_validate_brine_p1.py` | MARE: published (as published), published-in-procedure-1, S&W 1992 in procedure 1, refit |
 
-Coefficients: `results/p1_params.json` (single source; `embedded` = primary brine set on the paper's Sechenov target definition, ratio at equal T and total P; `embedded_B` = sensitivity, activity coefficient at equal gas fugacity, brine MAREs within 0.3 pp). Reports: `logs/`. Technical note: `report/sw_procedure1_refit.pdf`.
+Coefficients: `results/p1_params.json` (single source; `embedded` = primary brine set on the paper's Sechenov target definition, ratio at equal T and total P; `embedded_B` = sensitivity, activity coefficient at equal gas fugacity, brine MAREs within 0.3 pp). Reports: `logs/`. Refit paper draft: `manuscript_REFIT/sw_framework_refresh_REFIT_draft.pdf` (replaces the technical note, kept at tag `procedure1-2026-11`).
 
 ## Data selection
 
